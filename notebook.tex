@@ -1,0 +1,793 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Quora\_Duplicates}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Quora Duplicate Questions Checker
+(NLP)}\label{quora-duplicate-questions-checker-nlp}
+
+    This is the submission for a task on flagging duplicate questions on the
+Quora dataset from Kaggle.
+
+    \subsection{The Approach}\label{the-approach}
+
+The questions will be converted to respective feature vectors using
+\textbf{\emph{doc2vec}} (gensim's implementation). Then a
+\textbf{\emph{Siamese network}} will be trained to predict the duplicacy
+of questions. The code with all the explanation is given below.
+
+    \subsubsection{Importing the libraries}\label{importing-the-libraries}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{gensim}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cross\PYZus{}validation} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}\PY{p}{,} \PY{n}{Model}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{BatchNormalization}\PY{p}{,} \PY{n}{Activation}\PY{p}{,} \PY{n}{Input}\PY{p}{,} \PY{n}{Add}\PY{p}{,} \PY{n}{Concatenate}\PY{p}{,} \PY{n}{Lambda}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{RMSprop}\PY{p}{,} \PY{n}{SGD}\PY{p}{,} \PY{n}{Adam}
+        \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{backend} \PY{k}{as} \PY{n}{K}
+\end{Verbatim}
+
+
+    \subsubsection{Reading the CSV file into Pandas
+Dataframe}\label{reading-the-csv-file-into-pandas-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    id  qid1  qid2                                          question1  \textbackslash{}
+        0   0     1     2  What is the step by step guide to invest in sh{\ldots}   
+        1   1     3     4  What is the story of Kohinoor (Koh-i-Noor) Dia{\ldots}   
+        2   2     5     6  How can I increase the speed of my internet co{\ldots}   
+        3   3     7     8  Why am I mentally very lonely? How can I solve{\ldots}   
+        4   4     9    10  Which one dissolve in water quikly sugar, salt{\ldots}   
+        
+                                                   question2  is\_duplicate  
+        0  What is the step by step guide to invest in sh{\ldots}             0  
+        1  What would happen if the Indian government sto{\ldots}             0  
+        2  How can Internet speed be increased by hacking{\ldots}             0  
+        3  Find the remainder when [math]23\^{}\{24\}[/math] i{\ldots}             0  
+        4            Which fish would survive in salt water?             0  
+\end{Verbatim}
+            
+    \subsubsection{Preparing data for Doc2Vec training (unsupervised
+learning)}\label{preparing-data-for-doc2vec-training-unsupervised-learning}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}List of sentences and labels to make labelled sentences}
+        \PY{n}{questions} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{question1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{question2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{label\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{qid1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{qid2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Encoding to unicode}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{question} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{questions}\PY{p}{)}\PY{p}{:}
+            \PY{n}{questions}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{question}\PY{p}{)}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Tokenizing the sentences}
+        \PY{n}{questions} \PY{o}{=} \PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{gensim}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{tokenize}\PY{p}{(}\PY{n}{question}\PY{p}{,} \PY{n}{deacc}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{lower}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{question} \PY{o+ow}{in} \PY{n}{questions}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Creating LabeledLineSentence iterator to feed into Doc2Vec input}
+        \PY{k}{class} \PY{n+nc}{LabeledLineSentence}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{label\PYZus{}list}\PY{p}{,} \PY{n}{questions}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{questions} \PY{o}{=} \PY{n}{questions}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{label\PYZus{}list} \PY{o}{=} \PY{n}{label\PYZus{}list}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}iter\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{label}\PY{p}{,} \PY{n}{ques} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{label\PYZus{}list}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{questions}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{yield} \PY{n}{gensim}\PY{o}{.}\PY{n}{models}\PY{o}{.}\PY{n}{doc2vec}\PY{o}{.}\PY{n}{TaggedDocument}\PY{p}{(}\PY{n}{words}\PY{o}{=}\PY{n}{ques}\PY{p}{,} \PY{n}{tags}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QUES\PYZus{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{label}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{it} \PY{o}{=} \PY{n}{LabeledLineSentence}\PY{p}{(}\PY{n}{label\PYZus{}list}\PY{p}{,} \PY{n}{questions}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Training the Doc2Vec model for generating feature vectors
+of
+sentence.}\label{training-the-doc2vec-model-for-generating-feature-vectors-of-sentence.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Initialize}
+        \PY{n}{size\PYZus{}of\PYZus{}vector} \PY{o}{=} \PY{l+m+mi}{300}
+        \PY{n}{model} \PY{o}{=} \PY{n}{gensim}\PY{o}{.}\PY{n}{models}\PY{o}{.}\PY{n}{Doc2Vec}\PY{p}{(}\PY{n}{vector\PYZus{}size}\PY{o}{=}\PY{n}{size\PYZus{}of\PYZus{}vector}\PY{p}{,} \PY{n}{window}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{workers}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{negative}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.025}\PY{p}{,} \PY{n}{min\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.005}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Keeping only l2 normalized vectors, trick to save memory}
+        \PY{c+c1}{\PYZsh{}model.init\PYZus{}sims(replace=True)}
+        
+        \PY{c+c1}{\PYZsh{}Build the vocabulary to train}
+        \PY{n}{model}\PY{o}{.}\PY{n}{build\PYZus{}vocab}\PY{p}{(}\PY{n}{it}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vocab built!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Vocab built!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}Train the model}
+        \PY{n}{model}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{it}\PY{p}{,} \PY{n}{start\PYZus{}alpha}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{alpha}\PY{p}{,} \PY{n}{end\PYZus{}alpha}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{min\PYZus{}alpha}\PY{p}{,} \PY{n}{total\PYZus{}examples} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{corpus\PYZus{}count}\PY{p}{,} \PY{n}{epochs} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{epochs}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Saving the model to disk}
+        \PY{n}{model}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TrainedModel.doc2vec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Printing a feature vector}\label{printing-a-feature-vector}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{model}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QUES\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} array([ 0.1010121 , -0.13212034,  0.20697571, -0.07772458, -0.2904885 ,
+                0.09290215, -0.35331514, -0.356143  , -0.04176326, -0.04576672,
+               -0.13709651, -0.0357114 ,  0.01211934,  0.00779985, -0.24946555,
+               -0.073835  , -0.11245155,  0.32899585, -0.00636845, -0.07514311,
+               -0.01152763,  0.1030973 , -0.17321198,  0.35756987,  0.05059336,
+               -0.19144808,  0.0167082 ,  0.47161594,  0.2958863 ,  0.0713123 ,
+                0.14996015,  0.1820064 , -0.02615429, -0.02944973, -0.22602351,
+               -0.04852638,  0.01828839,  0.08953261, -0.09423032, -0.2090554 ,
+                0.21356587, -0.04206707,  0.02655583,  0.08692597,  0.02247708,
+               -0.09069867, -0.02576054, -0.1784472 , -0.11130156,  0.12017581,
+               -0.02301975,  0.26107648,  0.02411825, -0.00085904, -0.04000963,
+               -0.060376  ,  0.150168  ,  0.12186993, -0.02538476,  0.13142252,
+                0.10832738,  0.24926871, -0.17978851, -0.12546104, -0.1591322 ,
+               -0.10587286,  0.13702202, -0.01735692, -0.19662704,  0.02405479,
+               -0.12616156,  0.39206648,  0.06786001,  0.30039877, -0.28961372,
+               -0.19145077,  0.13219096,  0.40669823,  0.01285363, -0.03149781,
+                0.10214559, -0.12658314,  0.23072517,  0.35446617,  0.08455846,
+               -0.03517002,  0.02154905, -0.14335732,  0.00624254, -0.37736687,
+                0.11878463, -0.15520589,  0.34558412, -0.06958005, -0.0330475 ,
+               -0.15189403,  0.12950218,  0.16860373, -0.18401319, -0.06694235,
+                0.17546912, -0.17970309, -0.04844933,  0.07793888, -0.0875636 ,
+                0.02255841,  0.261998  , -0.03245204,  0.05971956, -0.16846095,
+                0.12183729,  0.0427808 , -0.29858944,  0.09705504, -0.08442573,
+                0.06107755,  0.0724733 ,  0.09792531, -0.15622084, -0.10198328,
+               -0.06692696,  0.21271828, -0.01105559, -0.27630642,  0.12670761,
+                0.26679012,  0.07788135,  0.02026083,  0.01551994,  0.13290422,
+                0.18124965,  0.11931239,  0.13974665, -0.34092465,  0.10707347,
+                0.10834585, -0.09710421, -0.17700018,  0.01055264, -0.00971784,
+               -0.20750703,  0.18812527,  0.01341095,  0.01392172, -0.15868117,
+                0.04152286, -0.12371553,  0.14770119,  0.24267566,  0.11264772,
+                0.15946844,  0.06907013, -0.3151104 , -0.09306239,  0.13305897,
+                0.28941658, -0.22603902,  0.09415465,  0.4037891 , -0.03411846,
+                0.33212474,  0.24666229,  0.07147261, -0.1648877 ,  0.01279794,
+                0.24543793, -0.02995815,  0.09809332,  0.00916121, -0.17340578,
+               -0.09141479,  0.09721921, -0.02650241, -0.09873933, -0.44106048,
+               -0.14436454,  0.16782294, -0.0209225 , -0.21465234,  0.36337948,
+               -0.03800158,  0.1484501 , -0.12360807,  0.21617503, -0.00947627,
+               -0.29139492,  0.11330323, -0.1477199 , -0.29244423, -0.13078557,
+                0.10263634, -0.1351873 , -0.11927554,  0.20717072,  0.03187283,
+                0.14184962, -0.10231453, -0.1492476 , -0.2550247 , -0.05389496,
+                0.19661802, -0.37907076,  0.05750739,  0.1983454 ,  0.01011348,
+               -0.10737077, -0.0777571 , -0.03389528,  0.00447315, -0.04775464,
+                0.1275274 ,  0.1122389 , -0.14150189,  0.15856227, -0.26712427,
+                0.00923262,  0.08039069,  0.03669498,  0.24909459, -0.18924199,
+                0.21262857,  0.43104798, -0.15186763,  0.04053361,  0.0376123 ,
+               -0.15917836, -0.05491212,  0.08423794,  0.1388688 ,  0.22103867,
+                0.01562748,  0.12144377,  0.23632106,  0.05226205, -0.1915901 ,
+                0.24155405,  0.153927  ,  0.47088996, -0.1258004 , -0.1460464 ,
+               -0.01991732,  0.07155553,  0.06668622,  0.1679224 ,  0.14619705,
+                0.11921348, -0.03682666, -0.27336243,  0.04093792,  0.02942304,
+                0.04224849,  0.09238243,  0.02632977,  0.10930859, -0.07894878,
+               -0.09116194, -0.00960128,  0.05176696,  0.22052719, -0.25249916,
+                0.1410123 , -0.1589397 , -0.01649868, -0.21937363,  0.26863217,
+                0.07434249, -0.03674535, -0.03793586,  0.3251129 ,  0.02966833,
+                0.28218228, -0.28578466, -0.17783535, -0.17231773, -0.25786635,
+               -0.01312948, -0.06459756, -0.26336363,  0.0135734 , -0.29203704,
+               -0.06049855, -0.06102484,  0.05645002,  0.08622446,  0.05945703,
+               -0.08082741,  0.35183737,  0.31119382, -0.22611924, -0.01557379,
+                0.02036766, -0.01220612, -0.27822742, -0.08799634,  0.11194889,
+                0.3291304 , -0.2504264 , -0.06701718,  0.01165668,  0.05978274],
+              dtype=float32)
+\end{Verbatim}
+            
+    \subsubsection{Create training data
+variables}\label{create-training-data-variables}
+
+Features
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Load the model and the dataframe}
+        \PY{n}{model} \PY{o}{=} \PY{n}{gensim}\PY{o}{.}\PY{n}{models}\PY{o}{.}\PY{n}{Doc2Vec}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TrainedModel.doc2vec}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Getting final array of training data}
+        \PY{n}{size\PYZus{}of\PYZus{}vector} \PY{o}{=} \PY{l+m+mi}{300}
+        \PY{n}{train\PYZus{}count} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+        \PY{n}{train\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{train\PYZus{}count}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{size\PYZus{}of\PYZus{}vector}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{q1\PYZus{}label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QUES\PYZus{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{qid1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{q2\PYZus{}label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{QUES\PYZus{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{qid2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{train\PYZus{}data}\PY{p}{[}\PY{n}{idx}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{n}{q1\PYZus{}label}\PY{p}{]}
+            \PY{n}{train\PYZus{}data}\PY{p}{[}\PY{n}{idx}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{n}{q2\PYZus{}label}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{train\PYZus{}data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} (404290, 2, 300)
+\end{Verbatim}
+            
+    Labels
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{train\PYZus{}labels} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}duplicate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{train\PYZus{}labels}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} (404290,)
+\end{Verbatim}
+            
+    Split data for validation
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{train\PYZus{}data}\PY{p}{,} \PY{n}{train\PYZus{}labels}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{We have completed the preprocessing of data. Now comes
+the real
+part.}\label{we-have-completed-the-preprocessing-of-data.-now-comes-the-real-part.}
+
+\subsection{The Siamese Network}\label{the-siamese-network}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{euclidean\PYZus{}distance}\PY{p}{(}\PY{n}{vects}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{vects}
+             \PY{k}{return} \PY{n}{K}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{eucl\PYZus{}dist\PYZus{}output\PYZus{}shape}\PY{p}{(}\PY{n}{shapes}\PY{p}{)}\PY{p}{:}
+             \PY{n}{shape1}\PY{p}{,} \PY{n}{shape2} \PY{o}{=} \PY{n}{shapes}
+             \PY{k}{return} \PY{p}{(}\PY{n}{shape1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{cosine\PYZus{}distance}\PY{p}{(}\PY{n}{vests}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{vests}
+             \PY{n}{x} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{l2\PYZus{}normalize}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{l2\PYZus{}normalize}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x} \PY{o}{*} \PY{n}{y}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{cos\PYZus{}dist\PYZus{}output\PYZus{}shape}\PY{p}{(}\PY{n}{shapes}\PY{p}{)}\PY{p}{:}
+             \PY{n}{shape1}\PY{p}{,} \PY{n}{shape2} \PY{o}{=} \PY{n}{shapes}
+             \PY{k}{return} \PY{p}{(}\PY{n}{shape1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{contrastive\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+             \PY{n}{margin} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}true} \PY{o}{*} \PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}true}\PY{p}{)} \PY{o}{*} \PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{n}{margin} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{k}{def} \PY{n+nf}{create\PYZus{}base\PYZus{}network}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Base network for feature extraction.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n+nb}{input} \PY{o}{=} \PY{n}{Input}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{,} \PY{p}{)}\PY{p}{)}
+             \PY{n}{dense1} \PY{o}{=} \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{(}\PY{n+nb}{input}\PY{p}{)}
+             \PY{n}{bn1} \PY{o}{=} \PY{n}{BatchNormalization}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{n}{dense1}\PY{p}{)}
+             \PY{n}{relu1} \PY{o}{=} \PY{n}{Activation}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{bn1}\PY{p}{)}
+         
+             \PY{n}{dense2} \PY{o}{=} \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{(}\PY{n}{relu1}\PY{p}{)}
+             \PY{n}{bn2} \PY{o}{=} \PY{n}{BatchNormalization}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{n}{dense2}\PY{p}{)}
+             \PY{n}{res2} \PY{o}{=} \PY{n}{Add}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{p}{[}\PY{n}{relu1}\PY{p}{,} \PY{n}{bn2}\PY{p}{]}\PY{p}{)}
+             \PY{n}{relu2} \PY{o}{=} \PY{n}{Activation}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{res2}\PY{p}{)}    
+         
+             \PY{n}{dense3} \PY{o}{=} \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{(}\PY{n}{relu2}\PY{p}{)}
+             \PY{n}{bn3} \PY{o}{=} \PY{n}{BatchNormalization}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{n}{dense3}\PY{p}{)}
+             \PY{n}{res3} \PY{o}{=} \PY{n}{Add}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{p}{[}\PY{n}{relu2}\PY{p}{,} \PY{n}{bn3}\PY{p}{]}\PY{p}{)}
+             \PY{n}{relu3} \PY{o}{=} \PY{n}{Activation}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{(}\PY{n}{res3}\PY{p}{)}   
+             
+             \PY{n}{feats} \PY{o}{=} \PY{n}{Concatenate}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{p}{[}\PY{n}{relu3}\PY{p}{,} \PY{n}{relu2}\PY{p}{,} \PY{n}{relu1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{bn4} \PY{o}{=} \PY{n}{BatchNormalization}\PY{p}{(}\PY{p}{)}\PY{p}{(}\PY{n}{feats}\PY{p}{)}
+         
+             \PY{n}{model} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n+nb}{input}\PY{o}{=}\PY{n+nb}{input}\PY{p}{,} \PY{n}{output}\PY{o}{=}\PY{n}{bn4}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{model}
+         
+         
+         \PY{k}{def} \PY{n+nf}{compute\PYZus{}accuracy}\PY{p}{(}\PY{n}{predictions}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Compute classification accuracy with a fixed threshold on distances.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{predictions}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{create\PYZus{}network}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} network definition}
+             \PY{n}{base\PYZus{}network} \PY{o}{=} \PY{n}{create\PYZus{}base\PYZus{}network}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{)}
+             
+             \PY{n}{input\PYZus{}a} \PY{o}{=} \PY{n}{Input}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+             \PY{n}{input\PYZus{}b} \PY{o}{=} \PY{n}{Input}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} because we re\PYZhy{}use the same instance `base\PYZus{}network`,}
+             \PY{c+c1}{\PYZsh{} the weights of the network}
+             \PY{c+c1}{\PYZsh{} will be shared across the two branches}
+             \PY{n}{processed\PYZus{}a} \PY{o}{=} \PY{n}{base\PYZus{}network}\PY{p}{(}\PY{n}{input\PYZus{}a}\PY{p}{)}
+             \PY{n}{processed\PYZus{}b} \PY{o}{=} \PY{n}{base\PYZus{}network}\PY{p}{(}\PY{n}{input\PYZus{}b}\PY{p}{)}
+             
+             \PY{n}{distance} \PY{o}{=} \PY{n}{Lambda}\PY{p}{(}\PY{n}{euclidean\PYZus{}distance}\PY{p}{,} \PY{n}{output\PYZus{}shape}\PY{o}{=}\PY{n}{eucl\PYZus{}dist\PYZus{}output\PYZus{}shape}\PY{p}{)}\PY{p}{(}\PY{p}{[}\PY{n}{processed\PYZus{}a}\PY{p}{,} \PY{n}{processed\PYZus{}b}\PY{p}{]}\PY{p}{)}
+             
+             \PY{n}{model} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n+nb}{input}\PY{o}{=}\PY{p}{[}\PY{n}{input\PYZus{}a}\PY{p}{,} \PY{n}{input\PYZus{}b}\PY{p}{]}\PY{p}{,} \PY{n}{output}\PY{o}{=}\PY{n}{distance}\PY{p}{)}
+             \PY{k}{return} \PY{n}{model}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{net} \PY{o}{=} \PY{n}{create\PYZus{}network}\PY{p}{(}\PY{l+m+mi}{300}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Using Adam Optimizer}
+         \PY{n}{net}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{n}{contrastive\PYZus{}loss}\PY{p}{,} \PY{n}{optimizer} \PY{o}{=} \PY{n}{Adam}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Running the final
+training}\label{running-the-final-training}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Real Epoch }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{/50}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{epoch}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{net}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,}
+                   \PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{Y\PYZus{}test}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,} \PY{n}{nb\PYZus{}epoch}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Compute final accuracy on training and test sets}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{)}
+             \PY{n}{te\PYZus{}acc} \PY{o}{=} \PY{n}{compute\PYZus{}accuracy}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{Y\PYZus{}test}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{* Accuracy on test set: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{l+m+mi}{100} \PY{o}{*} \PY{n}{te\PYZus{}acc}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Saving the trained model}\label{saving-the-trained-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{model\PYZus{}json} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{to\PYZus{}json}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model.json}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{json\PYZus{}file}\PY{p}{:}
+             \PY{n}{json\PYZus{}file}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{model\PYZus{}json}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} serialize weights to HDF5 (saving the weights)}
+         \PY{n}{net}\PY{o}{.}\PY{n}{save\PYZus{}weights}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model.h5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Saved model to disk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Till now, we have trained successfully on
+the training set and acheived \emph{81.78\% accuracy} on the validation
+set.}{Till now, we have trained successfully on the training set and acheived 81.78\% accuracy on the validation set.}}\label{till-now-we-have-trained-successfully-on-the-training-set-and-acheived-81.78-accuracy-on-the-validation-set.}
+
+    \section{Now, We will predict the values for test
+set}\label{now-we-will-predict-the-values-for-test-set}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{test\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}    test\_id                                          question1  \textbackslash{}
+         0        0  How does the Surface Pro himself 4 compare wit{\ldots}   
+         1        1  Should I have a hair transplant at age 24? How{\ldots}   
+         2        2  What but is the best way to send money from Ch{\ldots}   
+         3        3                        Which food not emulsifiers?   
+         4        4                   How "aberystwyth" start reading?   
+         
+                                                    question2  
+         0  Why did Microsoft choose core m3 and not core {\ldots}  
+         1        How much cost does hair transplant require?  
+         2                      What you send money to China?  
+         3                                  What foods fibre?  
+         4                     How their can I start reading?  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{q1} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{test\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{question1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{q2} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{test\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{question2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}Encode to unicode}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{question} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{q1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{q1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{question}\PY{p}{)}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{question} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{q2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{q2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{question}\PY{p}{)}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}Tokenizing the sentences}
+         \PY{n}{q1} \PY{o}{=} \PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{gensim}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{tokenize}\PY{p}{(}\PY{n}{question}\PY{p}{,} \PY{n}{deacc}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{lower}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{question} \PY{o+ow}{in} \PY{n}{q1}\PY{p}{]}
+         \PY{n}{q2} \PY{o}{=} \PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{gensim}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{tokenize}\PY{p}{(}\PY{n}{question}\PY{p}{,} \PY{n}{deacc}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{lower}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{question} \PY{o+ow}{in} \PY{n}{q2}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}Load Doc2Vec model to use infer\PYZus{}vector()}
+         \PY{c+c1}{\PYZsh{}model = gensim.models.Doc2Vec.load(\PYZdq{}TrainedModel.doc2vec\PYZdq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{size\PYZus{}of\PYZus{}vector} \PY{o}{=} \PY{l+m+mi}{300} \PY{c+c1}{\PYZsh{}Redundant}
+         \PY{n}{test\PYZus{}count} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{test\PYZus{}data\PYZus{}vector} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{test\PYZus{}count}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{size\PYZus{}of\PYZus{}vector}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{q} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{q1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{test\PYZus{}data\PYZus{}vector}\PY{p}{[}\PY{n}{idx}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{infer\PYZus{}vector}\PY{p}{(}\PY{n}{q}\PY{p}{)}
+         \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{q} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{q2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{test\PYZus{}data\PYZus{}vector}\PY{p}{[}\PY{n}{idx}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{infer\PYZus{}vector}\PY{p}{(}\PY{n}{q}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}Run The Siamese Netwrok cell from above}
+         \PY{c+c1}{\PYZsh{}then directly load model weights by uncommenting these lines}
+         
+         \PY{c+c1}{\PYZsh{}net = create\PYZus{}network(300) \PYZsh{}redundant}
+         \PY{c+c1}{\PYZsh{}net.compile(loss=contrastive\PYZus{}loss, optimizer = Adam(lr=0.001))}
+         \PY{c+c1}{\PYZsh{}net.load\PYZus{}weights(\PYZdq{}model.h5\PYZdq{}) \PYZsh{}redundant}
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}Loaded model from disk\PYZdq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}Predict on the test data}
+         \PY{n}{is\PYZus{}duplicate} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{[}\PY{n}{test\PYZus{}data\PYZus{}vector}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}data\PYZus{}vector}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{)}
+\end{Verbatim}
+
+
+    The above prediciton gives the distance between 2 vectors. Lesser the
+distance, higher the chance for them being duplicate.
+
+    \subsubsection{Preparing the final
+DataFrame}\label{preparing-the-final-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{final\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{test\PYZus{}count}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n}{final\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{test\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{final\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{is\PYZus{}duplicate}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Calculating the probability of being duplicate}
+         \PY{n}{final\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{final\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Setting negative values to 0}
+         \PY{n}{final\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{final\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{n}{final\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{final\PYZus{}data}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}duplicate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{final\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}    test\_id  is\_duplicate
+         0        0      0.118746
+         1        1      0.120376
+         2        2      0.062846
+         3        3      0.449672
+         4        4      0.484841
+\end{Verbatim}
+            
+    \subsection{Saving the output to
+Submission.CSV}\label{saving-the-output-to-submission.csv}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{final\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{submission.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Finally, we have calculated our predicitions and saved
+them to the CSV file in the prescribed
+format.}\label{finally-we-have-calculated-our-predicitions-and-saved-them-to-the-csv-file-in-the-prescribed-format.}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
